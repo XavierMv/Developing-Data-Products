@@ -1,0 +1,28 @@
+---
+title: "Developing Data Products"
+author: "Xavier Magaña Vera"
+date: "9/5/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(leaflet)
+library(AmesHousing)
+```
+
+## Leaflet
+
+In this project I will use the Ameshousig library to generate different point in a leaflet map and create some clusters out of them, the markers will be labeled with the name of the Neighborhood they belong to.
+
+```{r, warning=FALSE, message=FALSE}
+library(dplyr)
+h <- AmesHousing::make_ames()
+attach(h)
+map <- h %>%
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(lat = Latitude, lng = Longitude, popup = "Ames", label = Neighborhood, clusterOptions = markerClusterOptions())
+map
+```
+
